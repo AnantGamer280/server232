@@ -1,17 +1,11 @@
-# Base image
-FROM mcr.microsoft.com/windows/servercore:ltsc2022
+# Use official PufferPanel base image
+FROM pufferpanel/pufferpanel:latest
 
 # Set working directory
-WORKDIR /app
+WORKDIR /pufferpanel
 
-# Copy application files
-COPY . .
-
-# Install necessary dependencies (example: IIS for web hosting)
-RUN powershell -Command "Install-WindowsFeature -name Web-Server -IncludeManagementTools"
-
-# Expose a port
+# Expose the panel's default port (default: 8080)
 EXPOSE 8080
 
-# Start a simple web server
-CMD ["powershell", "Start-Process", "-NoNewWindow", "-FilePath", "C:\\Windows\\System32\\inetsrv\\inetinfo.exe"]
+# Start PufferPanel
+CMD ["pufferpanel", "run"]
